@@ -14,4 +14,4 @@ RUN apt-get update \
 RUN curl "https://github.com/wkhtmltopdf/packaging/releases/download/0.12.6-1/wkhtmltox_0.12.6-1.buster_amd64.deb" -L -o "wkhtmltopdf.deb"
 RUN dpkg -i wkhtmltopdf.deb
 
-ENTRYPOINT ["wkhtmltopdf"]
+CMD ["sh", "-c", "while true; do sleep 1000; done"]

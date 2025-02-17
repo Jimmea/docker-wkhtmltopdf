@@ -1,27 +1,14 @@
 # Wkhtmltopdf Docker image
 
-## Usage example
+docker build -t wkhtmltopdf-image .
 
-    docker run --rm -v `pwd`:/data michaelperrin/wkhtmltopdf \
-        --viewport-size 1280x1024 \
-        --page-size A4 \
-        http://example.com \
-        /data/test.pdf
+docker run -d --name wkhtmltopdf_service -v $(pwd):/data wkhtmltopdf-image
 
-### Using Docker Compose
+docker run -d --name wkhtmltopdf_service \
+  -v $(pwd):/data \
+  -v /tmp:/tmp \
+  wkhtmltopdf-image
 
-    # docker-compose.yml
-    version: '3'
-    services:
-      wkhtmltopdf:
-        image: wkhtmltopdf:latest
-        volumes:
-          - .:/data
-
-Run:
-
-    docker-compose run --rm wkhtmltopdf \
-        --viewport-size 1280x1024 \
-        --page-size A4 \
-        http://example.com \
-        /data/test.pdf
+# Run
+docker exec wkhtmltopdf_service wkhtmltopdf --viewport-size 1280x1024 --page-size A4 /data/input.html /data/test.pdf
+docker exec wkhtmltopdf_service wkhtmltopdf --viewport-size 1280x1024 --page-size A4 http://google.com/ /data/test.pdf
